@@ -12,7 +12,6 @@ class Server {
   constructor() {
     this.puerto = process.env.PORT || 5000;
     this.app = express();
-
     this.configurarBodyParser();
     this.conectarBD();
     this.rutas();
