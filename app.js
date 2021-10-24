@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const cors = require("cors");
 
 const UserRoutes = require("./routes/user.routes");
+const CompanyRoutes = require("./routes/company.routes");
 
 dotenv.config();
 
@@ -36,6 +37,7 @@ class Server {
     });
 
     this.app.use("/api", UserRoutes);
+    this.app.use("/api", CompanyRoutes);
   }
 
   conectarBD() {

@@ -9,44 +9,28 @@ const UserSchema = new Schema(
     },
     l_name: {
       type: String,
-      // required: [true, "El l_name es obligatorio"],
-    },
-    user: {
-      type: String,
-      required: [true, "El user es obligatoria"],
-      unique: [true, "El usuario debe ser único"],
-    },
-    code: {
-      type: String,
-      default: "",
+      required: [true, "El l_name es obligatorio"],
     },
     email: {
       type: String,
-      // required: [true, "El email es obligatorio"],
-      // unique: [true, "El email debe ser único"],
+      default: "",
     },
-    address: {
-      type: String,
-      // required: [true, "El address es obligatorio"],
+    ubigeo: {
+      address: { type: String, default: "" },
+      district: { type: String, default: null },
+      province: { type: String, default: null },
+      department: { type: String, default: null },
     },
     phone: {
       type: Number,
-      required: [true, "El celular es obligatorio"],
-    },
-    password: {
-      type: String,
-      required: [true, "El password es obligatorio"],
     },
     t_doc: {
       type: String,
-      enum: ["DNI", "PTP", "PASSPORT", "CNT_EXT", "RUC"],
       required: [true, "El tipo de documento es obligatorio"],
-      default: "DNI",
     },
     n_doc: {
       type: String,
-      // required: [true, "El número de documento es obligatorio"],
-      // unique: [true, "El usuario debe ser único"],
+      required: [true, "El número de documento es obligatorio"],
     },
     profile_picture: {
       type: String,
@@ -57,8 +41,6 @@ const UserSchema = new Schema(
     },
     type_sex: {
       type: String,
-      // enum: ["M", "F", "OTRO"],
-      // default: "M",
     },
     status: {
       type: Boolean,
@@ -66,29 +48,22 @@ const UserSchema = new Schema(
     },
     rol: {
       type: String,
-      enum: [
-        "superadmin",
-        "admin",
-        "transportista",
-        "cajero",
-        "vendedor",
-        "supervisor",
-        "jefetienda",
-        "horizontal",
-        "inventario",
-        "rrhh",
-      ],
+      enum: ["superadmin", "admin", "rrhh", "logistica", "doctor"],
       required: [true, "El rol es obligatorio"],
-      default: "vendedor",
+    },
+    user: {
+      type: String,
+      required: [true, "El user es obligatoria"],
+      unique: [true, "El usuario debe ser único"],
+    },
+    password: {
+      type: String,
+      required: [true, "El password es obligatorio"],
     },
     company: {
       type: Schema.Types.ObjectId,
       ref: "company",
       required: [true, "Company is required"],
-    },
-    route: {
-      type: Schema.Types.ObjectId,
-      ref: "route",
     },
     reset_password_token: {
       type: String,
