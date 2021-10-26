@@ -29,22 +29,20 @@ exports.login = (req, res) => {
 
 exports.showUsers = (req, res) => {
   const company = req.params.idCompany;
-  User.find({ company: company, rol: { $ne: "superadmin" } })
-    .populate("route")
-    .exec((err, data) => {
+  User.find({ company: company, rol: { $ne: "superadmin" } }).exec(
+    (err, data) => {
       if (err) return res.status(400).json(err);
       return res.status(200).json(data);
-    });
+    }
+  );
 };
 
 exports.showUsersByRol = (req, res) => {
   const { rol, idCompany } = req.params;
-  User.find({ company: idCompany, rol: rol })
-    .populate("route")
-    .exec((err, data) => {
-      if (err) return res.status(400).json(err);
-      return res.status(200).json(data);
-    });
+  User.find({ company: idCompany, rol: rol }).exec((err, data) => {
+    if (err) return res.status(400).json(err);
+    return res.status(200).json(data);
+  });
 };
 
 exports.createUser = (req, res) => {

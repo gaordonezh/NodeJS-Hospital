@@ -6,6 +6,9 @@ const cors = require("cors");
 
 const UserRoutes = require("./routes/user.routes");
 const CompanyRoutes = require("./routes/company.routes");
+const PatientRoutes = require("./routes/patient.routes");
+const ScheduleRoutes = require("./routes/schedule.routes");
+const DayRoutes = require("./routes/day.routes");
 
 dotenv.config();
 
@@ -38,6 +41,9 @@ class Server {
 
     this.app.use("/api", UserRoutes);
     this.app.use("/api", CompanyRoutes);
+    this.app.use("/api", PatientRoutes);
+    this.app.use("/api", ScheduleRoutes);
+    this.app.use("/api", DayRoutes);
   }
 
   conectarBD() {
