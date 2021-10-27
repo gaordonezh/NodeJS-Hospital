@@ -1,5 +1,4 @@
 const Patient = require("../models/Patient");
-const bcrypt = require("bcrypt");
 
 exports.showPatients = (req, res) => {
   const company = req.params.idCompany;
@@ -34,10 +33,6 @@ exports.updatePatient = (req, res) => {
         mensaje: "error",
         err,
       });
-
-    if (req.body.password) {
-      req.body.password = bcrypt.hashSync(req.body.password, 10);
-    }
 
     Object.assign(patient, req.body);
 

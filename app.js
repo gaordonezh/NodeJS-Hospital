@@ -9,6 +9,7 @@ const CompanyRoutes = require("./routes/company.routes");
 const PatientRoutes = require("./routes/patient.routes");
 const ScheduleRoutes = require("./routes/schedule.routes");
 const DayRoutes = require("./routes/day.routes");
+const QuoteRoutes = require("./routes/quote.routes");
 
 dotenv.config();
 
@@ -44,6 +45,7 @@ class Server {
     this.app.use("/api", PatientRoutes);
     this.app.use("/api", ScheduleRoutes);
     this.app.use("/api", DayRoutes);
+    this.app.use("/api", QuoteRoutes);
   }
 
   conectarBD() {

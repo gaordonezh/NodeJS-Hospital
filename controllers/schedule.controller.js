@@ -28,7 +28,6 @@ exports.createSchedule = (req, res) => {
 
 exports.updateSchedule = (req, res) => {
   const { idschedule } = req.params;
-  console.log(idschedule);
   Schedule.findById(idschedule).exec((err, schedule) => {
     if (err)
       return res.status(400).json({
