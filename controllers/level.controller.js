@@ -1,4 +1,6 @@
 const Level = require("../models/Level");
+const Building = require("../models/Building");
+const { getFreeItems } = require("../helpers/GetFreeItems");
 
 exports.showLevels = (req, res) => {
   const company = req.params.idCompany;
@@ -6,6 +8,18 @@ exports.showLevels = (req, res) => {
     if (err) return res.status(400).json(err);
     return res.status(200).json(data);
   });
+};
+
+exports.showLevelsByBuilding = async (req, res) => {
+  try {
+    const { idCompany, idBuilding } = req.params;
+    const dataBuilding = await Building.find({ company: idCompany });
+    const dataLevel = await Level.find({ company: idCompany });
+    const data = getFreeItems(dataBuilding, dataLevel, "levels", idBuilding);
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(400).json(error);
+  }
 };
 
 exports.createLevel = (req, res) => {

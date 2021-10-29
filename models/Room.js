@@ -13,6 +13,7 @@ const RoomSchema = new Schema(
     status: {
       type: String,
       enum: ["OCUPADO", "LIBRE"],
+      default: "LIBRE",
     },
     type: {
       type: String,
