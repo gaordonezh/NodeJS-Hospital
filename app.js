@@ -13,6 +13,9 @@ const QuoteRoutes = require("./routes/quote.routes");
 const BuildingRoutes = require("./routes/building.routes");
 const LevelRoutes = require("./routes/level.routes");
 const RoomRoutes = require("./routes/room.routes");
+const BedRoutes = require("./routes/bed.routes");
+const EquipmentRoutes = require("./routes/equipment.routes");
+const MaintenanceRoutes = require("./routes/maintenance.routes");
 
 dotenv.config();
 
@@ -52,6 +55,9 @@ class Server {
     this.app.use("/api", BuildingRoutes);
     this.app.use("/api", LevelRoutes);
     this.app.use("/api", RoomRoutes);
+    this.app.use("/api", BedRoutes);
+    this.app.use("/api", EquipmentRoutes);
+    this.app.use("/api", MaintenanceRoutes);
   }
 
   conectarBD() {
