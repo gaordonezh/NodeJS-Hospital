@@ -14,6 +14,19 @@ exports.showQuotes = (req, res) => {
     });
 };
 
+exports.showQuotesByUser = (req, res) => {
+  const { patient } = req.params;
+  Quote.find({ patient, status: "PENDIENTE" })
+    .populate([
+      { model: "patient", path: "patient" },
+      { model: "user", path: "user" },
+    ])
+    .exec((err, data) => {
+      if (err) return res.status(400).json(err);
+      return res.status(200).json(data);
+    });
+};
+
 exports.showFreeQuotes = async (req, res) => {
   try {
     const { idCompany } = req.params;
