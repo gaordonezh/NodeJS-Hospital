@@ -19,6 +19,9 @@ const EquipmentSchema = new Schema(
     serie: {
       type: String,
     },
+    type: {
+      type: String,
+    },
     room: {
       type: Schema.Types.ObjectId,
       ref: "room",

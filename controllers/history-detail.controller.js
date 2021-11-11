@@ -23,7 +23,7 @@ exports.createHistoryDetail = (req, res) => {
   historydetail.save(async (err, data) => {
     if (err) return res.status(400).json(err);
 
-    await Quote.findOneAndUpdate(req.body.quote, { status: "PROCESO" });
+    await Quote.findByIdAndUpdate(req.body.quote, { status: "PROCESO" });
 
     res.status(200).json({
       data,
