@@ -4,6 +4,7 @@ const uniqueValidator = require("mongoose-unique-validator");
 const HistoryDetailSchema = new Schema(
   {
     date: { type: String },
+    motivo: { type: String },
     ult_viaje: { type: String },
     enfermedad_actual: { type: String },
     tiempo_enfermedad: { type: String },

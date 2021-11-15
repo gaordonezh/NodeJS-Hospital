@@ -2,12 +2,24 @@ const Equipment = require("../models/Equipment");
 const Room = require("../models/Room");
 const { getFreeItems } = require("../helpers/GetFreeItems");
 
-exports.showEquipments = (req, res) => {
-  const company = req.params.idCompany;
-  Equipment.find({ company: company }).exec((err, data) => {
-    if (err) return res.status(400).json(err);
-    return res.status(200).json(data);
-  });
+exports.showEquipments = async (req, res) => {
+  try {
+    const { idCompany } = req.params;
+    const data = await Equipment.find({ company: idCompany });
+    let initial = [];
+    data.forEach((el) => {
+      let finder = initial.find((e) => e.type === el.type);
+      if (!finder) initial.push({ type: el.type, items: [] });
+    });
+
+    initial.forEach((el) => {
+      data.map((row) => el.type === row.type && el.items.push(row));
+    });
+
+    res.status(200).json(initial);
+  } catch (error) {
+    res.status(400).json(error);
+  }
 };
 
 exports.getEquipmentsByRoom = async (req, res) => {

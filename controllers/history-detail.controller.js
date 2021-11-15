@@ -14,7 +14,7 @@ exports.showHistoryDetails = (req, res) => {
     ])
     .exec((err, data) => {
       if (err) return res.status(400).json(err);
-      return res.status(200).json(data);
+      res.status(200).json(data);
     });
 };
 
@@ -35,20 +35,15 @@ exports.createHistoryDetail = (req, res) => {
 exports.updateHistoryDetail = (req, res) => {
   const { idAttention } = req.params;
   HistoryDetail.findById(idAttention).exec((err, historydetail) => {
-    if (err)
-      return res.status(400).json({
-        mensaje: "error",
-        err,
-      });
+    if (err) return res.status(400).json(err);
     Object.assign(historydetail, req.body);
 
     HistoryDetail.updateOne({ _id: idAttention }, historydetail).exec(
-      (error, data) => {
-        if (error)
-          return res.status(400).json({
-            mensaje: "error",
-            error,
-          });
+      async (error, data) => {
+        if (error) return res.status(400).json(error);
+        await Quote.findByIdAndUpdate(req.body.quoteId, {
+          status: "FINALIZADO",
+        });
         res.status(200).json(data);
       }
     );
