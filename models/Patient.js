@@ -44,6 +44,18 @@ const PatientsSchema = new Schema(
     estado_civil: {
       type: String,
     },
+    instruccion: {
+      type: String,
+      default: "",
+    },
+    l_nacimiento: {
+      type: String,
+      default: "",
+    },
+    l_procedencia: {
+      type: String,
+      default: "",
+    },
     status: {
       type: Boolean,
       default: true,

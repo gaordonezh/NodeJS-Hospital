@@ -22,3 +22,17 @@ exports.showCompanies = (req, res) => {
     return res.status(200).json(data);
   });
 };
+
+exports.updateCompany = (req, res) => {
+  const { company } = req.params;
+  Company.findById(company).exec((err, dat) => {
+    if (err) return res.status(400).json(err);
+
+    Object.assign(dat, req.body);
+
+    Company.updateOne({ _id: company }, dat).exec((error, data) => {
+      if (error) return res.status(400).json(error);
+      res.status(200).json(data);
+    });
+  });
+};

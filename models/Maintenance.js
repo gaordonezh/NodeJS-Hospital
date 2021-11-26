@@ -107,6 +107,30 @@ const MaintenanceSchema = new Schema(
         "Inoperativo por baja",
       ],
     },
+    recursos: [
+      {
+        code: { type: String },
+        type: { type: String },
+        name: { type: String },
+        caract: { type: String },
+        und_m: { type: String },
+        cant: { type: String },
+        vlr_u: { type: String },
+        total: { type: String },
+      },
+    ],
+    rrhh: [
+      {
+        code: { type: String },
+        name: { type: String },
+        price_hour: { type: String },
+        hours: { type: String },
+        total: { type: String },
+      },
+    ],
+    aditional: {
+      type: String,
+    },
   },
   {
     timestamps: true,
