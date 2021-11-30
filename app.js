@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
-const morgan = require("morgan");
+// const morgan = require("morgan");
 const cors = require("cors");
 
 const UserRoutes = require("./routes/user.routes");
@@ -39,7 +39,7 @@ class Server {
 
   configurarBodyParser() {
     this.app.use(cors());
-    this.app.use(morgan("dev"));
+    // this.app.use(morgan("dev"));
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: false }));
   }
