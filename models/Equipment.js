@@ -22,6 +22,12 @@ const EquipmentSchema = new Schema(
     type: {
       type: String,
     },
+    dates: [
+      {
+        date: { type: String, default: "" },
+        status: { type: Boolean, default: true },
+      },
+    ],
     room: {
       type: Schema.Types.ObjectId,
       ref: "room",

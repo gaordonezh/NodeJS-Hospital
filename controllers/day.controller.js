@@ -1,4 +1,5 @@
 const Day = require("../models/Day");
+const moment = require("moment");
 
 exports.showDays = (req, res) => {
   const { idCompany } = req.params;
@@ -47,4 +48,97 @@ exports.updateDay = (req, res) => {
       res.status(200).json(data);
     });
   });
+};
+
+exports.freeDays = (req, res) => {
+  const { iddoctor, date } = req.params;
+  Day.find({ user: iddoctor })
+    .populate("schedule")
+    .exec((err, day) => {
+      if (err) return res.status(400).json(err);
+
+      let tmp = [];
+
+      day.forEach((r) => {
+        if (r.monday) {
+          tmp.push({
+            day: "LUNES",
+            start: r.schedule.start,
+            end: r.schedule.end,
+            ts: moment(date)
+              .add(1, "days")
+              .startOf("week")
+              .format("YYYY-MM-DD"),
+          });
+        }
+        if (r.tuesday) {
+          tmp.push({
+            day: "MARTES",
+            start: r.schedule.start,
+            end: r.schedule.end,
+            ts: moment(date)
+              .startOf("week")
+              .add(2, "days")
+              .format("YYYY-MM-DD"),
+          });
+        }
+        if (r.wednesday) {
+          tmp.push({
+            day: "MIERCOLES",
+            start: r.schedule.start,
+            end: r.schedule.end,
+            ts: moment(date)
+              .startOf("week")
+              .add(3, "days")
+              .format("YYYY-MM-DD"),
+          });
+        }
+        if (r.thursday) {
+          tmp.push({
+            day: "JUEVES",
+            start: r.schedule.start,
+            end: r.schedule.end,
+            ts: moment(date)
+              .startOf("week")
+              .add(4, "days")
+              .format("YYYY-MM-DD"),
+          });
+        }
+        if (r.friday) {
+          tmp.push({
+            day: "VIERNES",
+            start: r.schedule.start,
+            end: r.schedule.end,
+            ts: moment(date)
+              .startOf("week")
+              .add(5, "days")
+              .format("YYYY-MM-DD"),
+          });
+        }
+        if (r.saturday) {
+          tmp.push({
+            day: "SABADO",
+            start: r.schedule.start,
+            end: r.schedule.end,
+            ts: moment(date)
+              .startOf("week")
+              .add(6, "days")
+              .format("YYYY-MM-DD"),
+          });
+        }
+        if (r.sunday) {
+          tmp.push({
+            day: "DOMINGO",
+            start: r.schedule.start,
+            end: r.schedule.end,
+            ts: moment(date)
+              .startOf("week")
+              .add(7, "days")
+              .format("YYYY-MM-DD"),
+          });
+        }
+      });
+
+      res.status(200).json(tmp);
+    });
 };

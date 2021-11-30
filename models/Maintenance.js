@@ -7,6 +7,9 @@ const MaintenanceSchema = new Schema(
       type: Boolean,
       default: false,
     },
+    date: {
+      type: String,
+    },
     date_request: {
       type: String,
     },

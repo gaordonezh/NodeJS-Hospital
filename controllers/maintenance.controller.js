@@ -1,4 +1,5 @@
 const Maintenance = require("../models/Maintenance");
+const Equipment = require("../models/Equipment");
 
 exports.showMaintenances = (req, res) => {
   const { idEquiment } = req.params;
@@ -9,18 +10,23 @@ exports.showMaintenances = (req, res) => {
 };
 
 exports.createMaintenance = (req, res) => {
-  const equipment = new Maintenance(req.body);
+  const maintenance = new Maintenance(req.body);
+  const { equipment } = req.body;
 
-  equipment.save((err, data) => {
-    if (err)
-      return res.status(400).json({
-        mensaje: "Error al almacenar el Maintenance",
-        err,
+  maintenance.save((err, data) => {
+    if (err) return res.status(400).json(err);
+
+    Equipment.findById(equipment).exec((er, eqp) => {
+      if (er) return res.status(400).json(er);
+      let finder = eqp.dates.findIndex((row) => row.date === req.body.date);
+
+      eqp.dates[finder].status = false;
+      Object.assign(eqp, req.body);
+
+      Equipment.updateOne({ _id: equipment }, eqp).exec((error, data) => {
+        if (error) return res.status(400).json(error);
+        res.status(200).json(data);
       });
-
-    res.status(200).json({
-      data,
-      mensaje: "El horario ha sido creado con éxito",
     });
   });
 };
