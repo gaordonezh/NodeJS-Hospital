@@ -6,17 +6,17 @@ exports.showEquipments = async (req, res) => {
   try {
     const { idCompany } = req.params;
     const data = await Equipment.find({ company: idCompany });
-    let initial = [];
-    data.forEach((el) => {
-      let finder = initial.find((e) => e.type === el.type);
-      if (!finder) initial.push({ type: el.type, items: [] });
-    });
+    res.status(200).json(data);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
 
-    initial.forEach((el) => {
-      data.map((row) => el.type === row.type && el.items.push(row));
-    });
-
-    res.status(200).json(initial);
+exports.showEquipmentById = async (req, res) => {
+  try {
+    const { equipment } = req.params;
+    const data = await Equipment.findById(equipment);
+    res.status(200).json(data);
   } catch (error) {
     res.status(400).json(error);
   }

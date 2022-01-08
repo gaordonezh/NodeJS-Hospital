@@ -5,10 +5,12 @@ const {
   showMaintenances,
   createMaintenance,
   updateMaintenance,
+  updateDates,
+  updateStock,
 } = require("../controllers/maintenance.controller");
 
 router.get("/maintenances/:idEquiment", showMaintenances);
-router.post("/maintenances", createMaintenance);
+router.post("/maintenances", updateDates, updateStock, createMaintenance);
 router.put("/maintenances/:idMaintenance", updateMaintenance);
 
 // SCRIPTS

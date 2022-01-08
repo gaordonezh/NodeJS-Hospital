@@ -112,6 +112,7 @@ const MaintenanceSchema = new Schema(
     },
     recursos: [
       {
+        id: { type: String },
         code: { type: String },
         type: { type: String },
         name: { type: String },
