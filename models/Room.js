@@ -17,8 +17,8 @@ const RoomSchema = new Schema(
     },
     type: {
       type: String,
-      enum: ["CIRUGÍA", "ALMACÉN"],
-      required: [true, "type is required"],
+      // enum: ["CIRUGÍA", "ALMACÉN"],
+      required: [false, "type is required"],
     },
     beds: [
       {

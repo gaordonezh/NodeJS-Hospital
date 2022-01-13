@@ -8,6 +8,33 @@ exports.showBuildings = (req, res) => {
   });
 };
 
+exports.showAllAssigments = (req, res) => {
+  const company = req.params.idCompany;
+  Building.find({ company: company })
+    .populate({
+      path: "levels",
+      model: "level",
+      populate: {
+        path: "rooms",
+        model: "room",
+        populate: [
+          {
+            path: "beds",
+            model: "bed",
+          },
+          {
+            path: "equipments",
+            model: "equipment",
+          },
+        ],
+      },
+    })
+    .exec((err, data) => {
+      if (err) return res.status(400).json(err);
+      res.status(200).json(data);
+    });
+};
+
 exports.createBuilding = (req, res) => {
   const building = new Building(req.body);
 

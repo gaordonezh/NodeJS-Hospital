@@ -12,6 +12,36 @@ exports.showEquipments = async (req, res) => {
   }
 };
 
+exports.showMaintenancesByDates = async (req, res) => {
+  try {
+    const { company } = req.params;
+    const data = await Equipment.find({ company });
+
+    let allDates = [];
+    data.forEach((m) => {
+      m.dates.forEach((d) => {
+        if (!allDates.includes(d.date) && d.status) allDates.push(d.date);
+      });
+    });
+
+    let newData = [];
+    data.forEach((m) => {
+      m.dates.forEach((d) => {
+        if (allDates.includes(d.date)) {
+          newData.push({ ...m._doc, date: d.date });
+        }
+      });
+    });
+
+    let reOrder = newData.sort((a, b) => (a.date > b.date ? 1 : -1));
+
+    res.status(200).json(reOrder);
+    // console.log(data);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 exports.showEquipmentById = async (req, res) => {
   try {
     const { equipment } = req.params;

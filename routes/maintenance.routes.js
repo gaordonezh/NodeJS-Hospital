@@ -8,8 +8,12 @@ const {
   updateDates,
   updateStock,
 } = require("../controllers/maintenance.controller");
+const {
+  showMaintenancesByDates,
+} = require("../controllers/equipment.controller");
 
 router.get("/maintenances/:idEquiment", showMaintenances);
+router.get("/maintenances/dates/:company", showMaintenancesByDates);
 router.post("/maintenances", updateDates, updateStock, createMaintenance);
 router.put("/maintenances/:idMaintenance", updateMaintenance);
 

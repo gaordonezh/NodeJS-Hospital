@@ -135,6 +135,11 @@ const MaintenanceSchema = new Schema(
     aditional: {
       type: String,
     },
+    company: {
+      type: Schema.Types.ObjectId,
+      ref: "company",
+      required: [true, "Company is required"],
+    },
   },
   {
     timestamps: true,
