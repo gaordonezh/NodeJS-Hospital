@@ -32,6 +32,16 @@ const EquipmentSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: "room",
     },
+    year_fab: {
+      type: Number,
+    },
+    garantia: {
+      active: { type: Boolean },
+      start: { type: String },
+      end: { type: String },
+    },
+    ins_acc: [{ type: String }],
+    price: { type: Number },
     company: {
       type: Schema.Types.ObjectId,
       ref: "company",
