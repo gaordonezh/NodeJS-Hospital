@@ -114,7 +114,7 @@ exports.uploadEquipment = async (req, res) => {
         if (e["fechas de mantenimiento"]) {
           dates = e["fechas de mantenimiento"]
             .split(",")
-            .map((d) => ({ date: d, status: true }));
+            .map((d) => ({ date: d.toString().trim(), status: true }));
         }
         return {
           name: e["nombre"],

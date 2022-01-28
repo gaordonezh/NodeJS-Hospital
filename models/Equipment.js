@@ -40,7 +40,7 @@ const EquipmentSchema = new Schema(
       start: { type: String },
       end: { type: String },
     },
-    ins_acc: [{ type: String }],
+    insumos_accesorios: [{ type: String }],
     price: { type: Number },
     company: {
       type: Schema.Types.ObjectId,

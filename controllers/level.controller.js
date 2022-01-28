@@ -4,10 +4,12 @@ const { getFreeItems } = require("../helpers/GetFreeItems");
 
 exports.showLevels = (req, res) => {
   const company = req.params.idCompany;
-  Level.find({ company: company }).exec((err, data) => {
-    if (err) return res.status(400).json(err);
-    return res.status(200).json(data);
-  });
+  Level.find({ company: company })
+    .populate({ path: "rooms", model: "room" })
+    .exec((err, data) => {
+      if (err) return res.status(400).json(err);
+      return res.status(200).json(data);
+    });
 };
 
 exports.showLevelsByBuilding = async (req, res) => {
