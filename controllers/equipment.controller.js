@@ -34,7 +34,13 @@ exports.showMaintenancesByDates = async (req, res) => {
       });
     });
 
-    let reOrder = newData.sort((a, b) =>
+    let otherNewData = [];
+    for (let i = 0; i < newData.length; i++) {
+      const ubication = await Room.findOne({ equipments: newData[i]._id });
+      otherNewData.push({ ...newData[i], ubication: ubication?.name ?? "" });
+    }
+
+    let reOrder = otherNewData.sort((a, b) =>
       moment(a.date).format() > moment(b.date).format() ? 1 : -1
     );
 
