@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 const uniqueValidator = require("mongoose-unique-validator");
 
-const BuildingSchema = new Schema(
+const UpssSchema = new Schema(
   {
     name: {
       type: String,
@@ -10,10 +10,10 @@ const BuildingSchema = new Schema(
     description: {
       type: String,
     },
-    levels: [
+    rooms: [
       {
         type: Schema.Types.ObjectId,
-        ref: "level",
+        ref: "room",
       },
     ],
     company: {
@@ -28,6 +28,6 @@ const BuildingSchema = new Schema(
   }
 );
 
-BuildingSchema.plugin(uniqueValidator);
+UpssSchema.plugin(uniqueValidator);
 
-module.exports = model("building", BuildingSchema);
+module.exports = model("upss", UpssSchema);

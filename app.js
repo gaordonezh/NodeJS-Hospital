@@ -20,6 +20,7 @@ const HistoryRoutes = require("./routes/history.routes");
 const HistoryDetailRoutes = require("./routes/history-detail.routes");
 const RecipeRoutes = require("./routes/recipe.routes");
 const InsumoRoutes = require("./routes/insumo.routes");
+const UpssRoutes = require("./routes/upss.routes");
 
 dotenv.config();
 
@@ -66,6 +67,7 @@ class Server {
     this.app.use("/api", HistoryDetailRoutes);
     this.app.use("/api", RecipeRoutes);
     this.app.use("/api", InsumoRoutes);
+    this.app.use("/api", UpssRoutes);
   }
 
   conectarBD() {
