@@ -3,19 +3,14 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.login = (req, res) => {
-  User.findOne({ user: req.body.user })
+  User.findOne({ user: req.body.user, status: true })
     .populate({ path: "company", model: "company" })
     .exec((err, data) => {
       if (err) return res.status(400).json(err);
-      if (!data)
-        return res
-          .status(400)
-          .json({ err: "Usuario o contraseña incorrecta." });
+      if (!data) return res.status(400).json({ err: "Usuario o contraseña incorrecta." });
 
       if (!bcrypt.compareSync(req.body.password, data.password)) {
-        return res
-          .status(400)
-          .json({ err: "Usuario o contraseña incorrecta." });
+        return res.status(400).json({ err: "Usuario o contraseña incorrecta." });
       }
 
       const token = jwt.sign({ data }, process.env.SECRET, { expiresIn: "7d" });
@@ -29,17 +24,15 @@ exports.login = (req, res) => {
 
 exports.showUsers = (req, res) => {
   const company = req.params.idCompany;
-  User.find({ company: company, rol: { $ne: "superadmin" } }).exec(
-    (err, data) => {
-      if (err) return res.status(400).json(err);
-      return res.status(200).json(data);
-    }
-  );
+  User.find({ company: company, status: true, rol: { $ne: "superadmin" } }).exec((err, data) => {
+    if (err) return res.status(400).json(err);
+    return res.status(200).json(data);
+  });
 };
 
 exports.showUsersByRol = (req, res) => {
   const { rol, idCompany } = req.params;
-  User.find({ company: idCompany, rol: rol }).exec((err, data) => {
+  User.find({ company: idCompany, status: true, rol: rol }).exec((err, data) => {
     if (err) return res.status(400).json(err);
     return res.status(200).json(data);
   });
